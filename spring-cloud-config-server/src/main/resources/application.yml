@@ -5,5 +5,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zhoozhoo/spring-cloud-config.git
+          uri: https://github.com/zhoozhoo/spring-cloud-examples-config.git
           force-pull: true
