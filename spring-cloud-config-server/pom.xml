@@ -6,7 +6,7 @@
     <parent>
         <groupId>ca.zhoozhoo.spring.cloud</groupId>
         <artifactId>spring-cloud</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>spring-cloud-config-server</artifactId>
