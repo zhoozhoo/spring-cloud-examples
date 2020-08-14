@@ -43,19 +43,19 @@ public class SecurityConfig {
     }
 
     private ReactiveJwtAuthenticationConverter jwtAuthenticationConverter() {
-        ReactiveJwtAuthenticationConverter jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverter();
+        var jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverter();
+
         // Convert realm_access.roles claims to granted authorities, for use in access decisions
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new Converter<Jwt, Flux<GrantedAuthority>>() {
 
             @Override
             @SuppressWarnings("unchecked")
             public Flux<GrantedAuthority> convert(final Jwt jwt) {
-                final Map<String, Object> realmAccess = (Map<String, Object>) jwt.getClaims().get("realm_access");
                 return Flux.fromIterable(
-                        ((List<String>) realmAccess.get("roles")).stream().map(roleName -> "ROLE_" + roleName)
-                                .map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                        ((List<String>) ((Map<String, Object>) jwt.getClaims().get("realm_access")).get("roles"))
+                                .stream().map(roleName -> "ROLE_" + roleName).map(SimpleGrantedAuthority::new)
+                                .collect(Collectors.toList()));
             }
-
         });
 
         return jwtAuthenticationConverter;
@@ -63,26 +63,21 @@ public class SecurityConfig {
 
     @Bean
     public ReactiveJwtDecoder reactiveJwtDecoderByIssuerUri(OAuth2ResourceServerProperties properties) {
-        String issuerUri = properties.getJwt().getIssuerUri();
-        NimbusReactiveJwtDecoder jwtDecoder =
-                (NimbusReactiveJwtDecoder) ReactiveJwtDecoders.fromIssuerLocation(issuerUri);
+        var jwtDecoder =
+                (NimbusReactiveJwtDecoder) ReactiveJwtDecoders.fromIssuerLocation(properties.getJwt().getIssuerUri());
+
         // Use preferred_username from claims as authentication name, instead of UUID subject
-        jwtDecoder.setClaimSetConverter(new UsernameSubClaimAdapter());
+        jwtDecoder.setClaimSetConverter(new Converter<Map<String, Object>, Map<String, Object>>() {
+
+            @Override
+            public Map<String, Object> convert(Map<String, Object> claims) {
+                var convertedClaims = MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap()).convert(claims);
+                convertedClaims.put("sub", (String) convertedClaims.get("preferred_username"));
+
+                return convertedClaims;
+            }
+        });
 
         return jwtDecoder;
-    }
-
-    class UsernameSubClaimAdapter implements Converter<Map<String, Object>, Map<String, Object>> {
-
-        private final MappedJwtClaimSetConverter delegate =
-                MappedJwtClaimSetConverter.withDefaults(Collections.emptyMap());
-
-        @Override
-        public Map<String, Object> convert(Map<String, Object> claims) {
-            Map<String, Object> convertedClaims = this.delegate.convert(claims);
-            String username = (String) convertedClaims.get("preferred_username");
-            convertedClaims.put("sub", username);
-            return convertedClaims;
-        }
     }
 }

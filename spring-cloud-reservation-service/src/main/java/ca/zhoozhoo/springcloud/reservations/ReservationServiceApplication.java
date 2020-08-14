@@ -23,10 +23,10 @@ public class ReservationServiceApplication {
 
 	@Bean
 	public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
-		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
+		var initializer = new ConnectionFactoryInitializer();
 		initializer.setConnectionFactory(connectionFactory);
 
-		CompositeDatabasePopulator populator = new CompositeDatabasePopulator();
+		var populator = new CompositeDatabasePopulator();
 		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
 		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
 		initializer.setDatabasePopulator(populator);

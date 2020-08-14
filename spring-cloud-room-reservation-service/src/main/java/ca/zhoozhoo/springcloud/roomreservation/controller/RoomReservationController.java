@@ -36,14 +36,14 @@ public class RoomReservationController {
     public Flux<RoomReservation> getRoomReservations(
             @RequestParam(name = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
             @RequestHeader Map<String, String> headers) {
-        Flux<RoomReservation> roomReservations = webClient.get().uri("http://reservation-service/reservations", date)
-                .retrieve().bodyToFlux(Reservation.class).publishOn(Schedulers.elastic()).map(reservation -> {
+        var roomReservations = webClient.get().uri("http://reservation-service/reservations", date).retrieve()
+                .bodyToFlux(Reservation.class).publishOn(Schedulers.elastic()).map(reservation -> {
                     return webClient.get().uri("http://room-service/rooms/{id}", reservation.getRoomId())
                             .headers(httpHeaders -> httpHeaders.setAll(headers)).retrieve().bodyToMono(Room.class)
                             .zipWith(webClient.get().uri("http://guest-service/guests/{id}", reservation.getGuestId())
                                     .headers(httpHeaders -> httpHeaders.setAll(headers)).retrieve()
                                     .bodyToMono(Guest.class), (room, guest) -> {
-                                        RoomReservation roomReservation = new RoomReservation();
+                                        var roomReservation = new RoomReservation();
                                         roomReservation.setDate(date);
                                         roomReservation.setRoomId(room.getId());
                                         roomReservation.setRoomName(room.getName());
