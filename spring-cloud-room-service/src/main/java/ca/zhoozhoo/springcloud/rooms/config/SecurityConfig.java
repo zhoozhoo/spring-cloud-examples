@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Reacti
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
 
-import lombok.var;
 import reactor.core.publisher.Flux;
 
 @Configuration
