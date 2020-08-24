@@ -1,7 +1,6 @@
 FROM openjdk:11-jre as builder
 WORKDIR /app
-ARG JAR_FILE
-ADD ${JAR_FILE} ./app.jar
+ADD maven/*.jar ./app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
 ARG DOCKERIZE_VERSION
