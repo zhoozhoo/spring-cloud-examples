@@ -2,9 +2,11 @@ spring:
   application:
     name: admin-server
   cloud:
-    config:
+    config: 
       uri: http://localhost:8888
       fail-fast: true
+    kubernetes:
+      enabled: false
 ---
 spring:
   profiles: docker
@@ -12,3 +14,20 @@ spring:
     config:
       uri: http://config-server:8888
       fail-fast: true
+---
+spring:
+  profiles: kubernetes
+  cloud:
+    config: 
+      enabled: false
+    kubernetes:
+      enabled: true
+      config:
+        sources:
+          - name: other
+          - name: ${spring.application.name}
+      reload:
+        enabled: true
+        strategy: refresh
+        mode: polling
+        period: 5000
