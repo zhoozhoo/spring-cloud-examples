@@ -182,7 +182,7 @@ services:
         "org.springframework.boot.loader.JarLauncher",
       ]
     ports:
-      - 9090:9090
+      - 9090:8080
     networks:
       - spring-cloud-network
 
