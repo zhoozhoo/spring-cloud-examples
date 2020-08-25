@@ -14,8 +14,8 @@
     <description>Sample Spring Boot Admin Server</description>
 
     <properties>
-        <spring-boot-admin.version>2.2.4</spring-boot-admin.version>
-        <docker.image.exposed.port>9090</docker.image.exposed.port>
+        <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+        <docker.image.exposed.port>8080</docker.image.exposed.port>
     </properties>
 
     <dependencies>
@@ -38,6 +38,11 @@
             <artifactId>spring-boot-admin-server-ui</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-cloud</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
 
         <!-- Spring Cloud -->
         <dependency>
@@ -47,6 +52,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
         </dependency>
 
         <!-- Other Spring-->
@@ -78,6 +87,9 @@
     <profiles>
         <profile>
             <id>docker</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
