@@ -8,7 +8,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERS
     && tar xzf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && chmod +x dockerize
 
-FROM adoptopenjdk:14-jre-hotspot
+FROM adoptopenjdk:15-jre-hotspot
 LABEL maintainer="zhoozhoo@yahoo.com"
 WORKDIR /app
 ARG EXPOSED_PORT
