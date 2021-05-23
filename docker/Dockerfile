@@ -1,5 +1,5 @@
 FROM openjdk:11-jre as builder
-WORKDIR application
+WORKDIR /application
 COPY maven/*.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
@@ -13,7 +13,7 @@ FROM adoptopenjdk:16-jre-hotspot
 
 LABEL maintainer="zhoozhoo@yahoo.com"
 
-WORKDIR application
+WORKDIR /application
 
  # Dockerize
 COPY --from=builder application/dockerize ./
