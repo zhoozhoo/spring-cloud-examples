@@ -7,16 +7,26 @@ spring:
       fail-fast: true
     kubernetes:
       enabled: false
+      discovery:
+        enabled: false
 ---
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
   cloud:
     config:
       uri: http://config-server:8888
       fail-fast: true
+    kubernetes:
+      enabled: false
+      discovery:
+        enabled: false
 ---
 spring:
-  profiles: kubernetes
+  config:
+    activate:
+      on-profile: kubernetes
   cloud:
     config: 
       enabled: false
