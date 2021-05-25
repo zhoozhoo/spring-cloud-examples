@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-server
+  labels:
+    app: auth-server
+spec:
+  ports:
+  - name: http
+    port: 8180
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: auth-server
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-server
+  labels:
+    app: auth-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-server
+  template:
+    metadata:
+      labels:
+        app: auth-server
+    spec:
+      containers:
+      - name: auth-server
+        imagePullPolicy: IfNotPresent
+        image: zhoozhoo/spring-cloud-auth-server
+        ports:
+        - name: http
+          containerPort: &target 8080
+        readinessProbe:
+          httpGet:
+            path: /auth/realms/master
+            port: *target
+        
