@@ -1,5 +1,7 @@
 package ca.zhoozhoo.springcloud.roomreservation.controller;
 
+import static reactor.core.scheduler.Schedulers.boundedElastic;
+
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -18,7 +20,6 @@ import ca.zhoozhoo.springcloud.roomreservation.model.Reservation;
 import ca.zhoozhoo.springcloud.roomreservation.model.Room;
 import ca.zhoozhoo.springcloud.roomreservation.model.RoomReservation;
 import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
 
 @RestController
 @RequestMapping("/room-reservations")
@@ -37,7 +38,7 @@ public class RoomReservationController {
             @RequestParam(name = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
             @RequestHeader Map<String, String> headers) {
         var roomReservations = webClient.get().uri("http://reservation-service/reservations", date).retrieve()
-                .bodyToFlux(Reservation.class).publishOn(Schedulers.elastic()).map(reservation -> {
+                .bodyToFlux(Reservation.class).publishOn(boundedElastic()).map(reservation -> {
                     return webClient.get().uri("http://room-service/rooms/{id}", reservation.getRoomId())
                             .headers(httpHeaders -> httpHeaders.setAll(headers)).retrieve().bodyToMono(Room.class)
                             .zipWith(webClient.get().uri("http://guest-service/guests/{id}", reservation.getGuestId())
