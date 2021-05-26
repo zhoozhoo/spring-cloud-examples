@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +27,9 @@ import org.springframework.security.web.server.header.XFrameOptionsServerHttpHea
 import reactor.core.publisher.Flux;
 
 @Configuration
+@EnableReactiveMethodSecurity
 @EnableWebFluxSecurity
+@Profile({"docker", "kubernetes"})
 public class SecurityConfig {
 
     @Bean
