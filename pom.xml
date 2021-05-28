@@ -16,6 +16,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>spring-cloud-auth-server</module>
         <module>spring-cloud-config-server</module>
         <module>spring-cloud-discovery-server</module>
         <module>spring-cloud-room-service</module>
