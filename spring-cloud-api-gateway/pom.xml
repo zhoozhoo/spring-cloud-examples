@@ -98,7 +98,10 @@
     <profiles>
         <profile>
             <id>docker</id>
-            <build>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+           <build>
                 <plugins>
                     <plugin>
                         <groupId>org.eclipse.jkube</groupId>
