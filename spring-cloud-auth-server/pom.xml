@@ -44,4 +44,51 @@
 			<version>${keycloak.version}</version>
 		</dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.jkube</groupId>
+                        <artifactId>kubernetes-maven-plugin</artifactId>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>${project.artifactId}</alias>
+                                    <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
+                                    <build combine.self="override">
+                                        <from>jboss/keycloak:${keycloak.version}</from>
+                                        <env>
+                                            <KEYCLOAK_USER>user</KEYCLOAK_USER>
+                                            <KEYCLOAK_PASSWORD>password</KEYCLOAK_PASSWORD>
+                                            <KEYCLOAK_IMPORT>/tmp/spring-cloud-gateway-realm.json</KEYCLOAK_IMPORT>
+                                        </env>
+                                        <assembly>
+                                            <mode>dir</mode>
+                                            <targetDir>/tmp</targetDir>
+                                            <inline>
+                                                <id>spring-cloud-gateway-realm</id>
+                                                <files>
+                                                    <file>
+                                                        <source>spring-cloud-gateway-realm.json</source>
+                                                        <outputDirectory>.</outputDirectory>
+                                                    </file>
+                                                </files>
+                                            </inline>
+                                        </assembly>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
