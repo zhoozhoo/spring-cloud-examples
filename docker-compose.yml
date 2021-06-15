@@ -11,9 +11,7 @@ services:
       - spring-cloud-network
 
   auth-server:
-    build:
-      context: ./docker/keycloak
-    image: zhoozhoo/spring-cloud-auth-server
+    image: zhoozhoo/spring-cloud-auth-server:0.2.0-SNAPSHOT
     container_name: auth-server
     ports:
       - 8180:8080
@@ -21,7 +19,7 @@ services:
       - spring-cloud-network
 
   config-server:
-    image: zhoozhoo/spring-cloud-config-server
+    image: zhoozhoo/spring-cloud-config-server:0.2.0-SNAPSHOT
     container_name: config-server
     ports:
       - 8888:8888
@@ -29,7 +27,7 @@ services:
       - spring-cloud-network
 
   discovery-server:
-    image: zhoozhoo/spring-cloud-discovery-server
+    image: zhoozhoo/spring-cloud-discovery-server:0.2.0-SNAPSHOT
     container_name: discovery-server
     depends_on:
       - config-server
@@ -48,7 +46,7 @@ services:
       - spring-cloud-network
 
   guest-service:
-    image: zhoozhoo/spring-cloud-guest-service
+    image: zhoozhoo/spring-cloud-guest-service:0.2.0-SNAPSHOT
     container_name: guest-service
     depends_on:
       - config-server
@@ -71,7 +69,7 @@ services:
       - spring-cloud-network
 
   reservation-service:
-    image: zhoozhoo/spring-cloud-reservation-service
+    image: zhoozhoo/spring-cloud-reservation-service:0.2.0-SNAPSHOT
     container_name: reservation-service
     depends_on:
       - config-server
@@ -94,7 +92,7 @@ services:
       - spring-cloud-network
 
   room-service:
-    image: zhoozhoo/spring-cloud-room-service
+    image: zhoozhoo/spring-cloud-room-service:0.2.0-SNAPSHOT
     container_name: room-service
     depends_on:
       - config-server
@@ -117,7 +115,7 @@ services:
       - spring-cloud-network
 
   room-reservation-service:
-    image: zhoozhoo/spring-cloud-room-reservation-service
+    image: zhoozhoo/spring-cloud-room-reservation-service:0.2.0-SNAPSHOT
     container_name: room-reservation-service
     depends_on:
       - config-server
@@ -143,7 +141,7 @@ services:
       - spring-cloud-network
 
   api-gateway:
-    image: zhoozhoo/spring-cloud-api-gateway
+    image: zhoozhoo/spring-cloud-api-gateway:0.2.0-SNAPSHOT
     container_name: api-gateway
     depends_on:
       - config-server
@@ -166,7 +164,7 @@ services:
       - spring-cloud-network
 
   admin-server:
-    image: zhoozhoo/spring-cloud-admin-server
+    image: zhoozhoo/spring-cloud-admin-server:0.2.0-SNAPSHOT
     container_name: admin-server
     depends_on:
       - config-server
