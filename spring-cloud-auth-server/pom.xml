@@ -13,10 +13,6 @@
     <name>Auth Server</name>
     <description>Sample Spring Cloud Authorization Server</description>
 
-    <properties>
-		<keycloak.version>13.0.1</keycloak.version>
-	</properties>
-
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -65,9 +61,10 @@
                                     <build combine.self="override">
                                         <from>jboss/keycloak:${keycloak.version}</from>
                                         <env>
-                                            <KEYCLOAK_USER>user</KEYCLOAK_USER>
-                                            <KEYCLOAK_PASSWORD>password</KEYCLOAK_PASSWORD>
+                                            <KEYCLOAK_USER>admin</KEYCLOAK_USER>
+                                            <KEYCLOAK_PASSWORD>admin</KEYCLOAK_PASSWORD>
                                             <KEYCLOAK_IMPORT>/tmp/spring-cloud-gateway-realm.json</KEYCLOAK_IMPORT>
+                                            <DB_VENDOR>h2</DB_VENDOR>
                                         </env>
                                         <assembly>
                                             <mode>dir</mode>

@@ -12,7 +12,6 @@
     <description>Sample Spring Boot Admin Server</description>
 
     <properties>
-        <spring-boot-admin.version>2.4.1</spring-boot-admin.version>
         <docker.image.exposed.port>8080</docker.image.exposed.port>
     </properties>
 
