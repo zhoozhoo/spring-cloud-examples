@@ -1,15 +1,5 @@
 version: "3.8"
 services:
-  tracing-server:
-    image: openzipkin/zipkin:latest
-    container_name: tracing-server
-    environment:
-      - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
-    ports:
-      - 9411:9411
-    networks:
-      - spring-cloud-network
-
   auth-server:
     image: zhoozhoo/spring-cloud-auth-server:0.2.0-SNAPSHOT
     container_name: auth-server
@@ -163,6 +153,18 @@ services:
     networks:
       - spring-cloud-network
 
+  tracing-server:
+    image: openzipkin/zipkin
+    container_name: tracing-server
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    environment:
+    - JAVA_OPTS=-XX:+UnlockExperimentalVMOptions -Djava.security.egd=file:/dev/./urandom
+    ports:
+     - 9411:9411
+     
   admin-server:
     image: zhoozhoo/spring-cloud-admin-server:0.2.0-SNAPSHOT
     container_name: admin-server
