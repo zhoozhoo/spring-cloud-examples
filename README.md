@@ -1,5 +1,8 @@
 # Spring Cloud Examples
 
+[![CI](https://github.com/zhoozhoo/spring-cloud-examples/actions/workflows/ci.yml/badge.svg)](https://github.com/zhoozhoo/spring-cloud-examples/actions/workflows/ci.yml)
+
+
 An example of microservices using the following technologies:
 
 - [Spring Cloud](https://spring.io/projects/spring-cloud)
