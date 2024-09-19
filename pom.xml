@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.3.4</version>
     </parent>
 
     <groupId>ca.zhoozhoo.spring.cloud</groupId>
@@ -29,14 +29,13 @@
 
     <properties>
         <java.version>21</java.version>
-        <spring-boot.version>3.3.3</spring-boot.version>
+        <spring-boot.version>3.3.4</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-boot-admin.version>3.3.3</spring-boot-admin.version>
         <jolokia-core.version>1.7.2</jolokia-core.version>
-		<keycloak.version>13.0.1</keycloak.version>
+        <keycloak.version>25.0.5</keycloak.version>
         <docker.image.prefix>zhoozhoo</docker.image.prefix>
-        <docker.image.dockerize.version>v0.8.0</docker.image.dockerize.version>
-        <kubernetes-maven-plugin.version>1.17.0</kubernetes-maven-plugin.version>
+        <jkube.version>1.17.0</jkube.version>
     </properties>
 
     <dependencyManagement>
@@ -61,23 +60,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>build-info</goal>
+                            <goal>build-image-no-fork</goal>
                         </goals>
                         <configuration>
                             <additionalProperties>
-                                <encoding.source>${project.build.sourceEncoding}</encoding.source>
-                                <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
+                                <encoding.source>UTF-8</encoding.source>
+                                <encoding.reporting>UTF-8</encoding.reporting>
                                 <java.version>${java.version}</java.version>
                             </additionalProperties>
+                            <image>
+                                <name>
+                                    ${docker.image.prefix}/${project.artifactId}:${project.version}</name>
+                                <runImage>eclipse-temurin:${java.version}-jre-alpine</runImage>
+                            </image>
                         </configuration>
                     </execution>
                 </executions>
@@ -85,44 +84,13 @@
         </plugins>
     </build>
 
-    <profiles> 
+    <profiles>
         <profile>
             <id>docker</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.eclipse.jkube</groupId>
-                            <artifactId>kubernetes-maven-plugin</artifactId>
-                            <version>${kubernetes-maven-plugin.version}</version>
-                            <configuration>
-                                <images>
-                                    <image>
-                                        <alias>${project.artifactId}</alias>
-                                        <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
-                                        <build>
-                                            <contextDir>${project.basedir}/../docker</contextDir>
-                                            <args>
-                                                <DOCKERIZE_VERSION>${docker.image.dockerize.version}</DOCKERIZE_VERSION>
-                                                <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>
-                                            </args>
-                                        </build>
-                                    </image>
-                                </images>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>build</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
             </build>
         </profile>
     </profiles>

@@ -31,11 +31,6 @@
         <!-- KeyCloak -->
 		<dependency>
 			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-spring-boot-starter</artifactId>
-			<version>${keycloak.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-admin-client</artifactId>
 			<version>${keycloak.version}</version>
 		</dependency>
@@ -59,7 +54,7 @@
                                     <alias>${project.artifactId}</alias>
                                     <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
                                     <build combine.self="override">
-                                        <from>jboss/keycloak:${keycloak.version}</from>
+                                        <from>quay.io/keycloak/keycloak:${keycloak.version}</from>
                                         <env>
                                             <KEYCLOAK_USER>admin</KEYCLOAK_USER>
                                             <KEYCLOAK_PASSWORD>admin</KEYCLOAK_PASSWORD>

@@ -1,4 +1,4 @@
-FROM jboss/keycloak:latest
+FROM quay.io/keycloak/keycloak:latest
 COPY spring-cloud-gateway-realm.json /tmp
 ENV KEYCLOAK_USER=user
 ENV KEYCLOAK_PASSWORD=password
