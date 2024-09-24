@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.rooms.dao;
+package ca.zhoozhoo.springcloud.rooms.repository;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;

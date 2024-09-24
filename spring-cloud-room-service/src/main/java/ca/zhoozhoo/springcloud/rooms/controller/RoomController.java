@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.zhoozhoo.springcloud.rooms.dao.RoomRepository;
 import ca.zhoozhoo.springcloud.rooms.model.Room;
+import ca.zhoozhoo.springcloud.rooms.repository.RoomRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
