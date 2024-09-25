@@ -3,13 +3,8 @@ spring:
     config:
       enabled: false
   r2dbc:
-    url: "r2dbc:h2:mem:///testdb"
-  sql:
-    init:
-      schema-locations:
-      - classpath*:schema.sql
-      data-locations:
-      - classpath*:data.sql
+    url: "r2dbc:h2:mem:///test;DB_CLOSE_DELAY=-1"
+    name: "sa"
   security:
     oauth2:
       resourceserver:
