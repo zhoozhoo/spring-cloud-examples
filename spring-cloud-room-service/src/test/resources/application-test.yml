@@ -14,4 +14,4 @@ eureka:
   client:
     enabled: false
 
-# logging.level.org.springframework: DEBUG
+logging.level.org.springframework: DEBUG
