@@ -1,10 +1,15 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: none
-  sql:
-    init:
-      schema-locations:
-      - classpath*:schema.sql
-      data-locations:
-      - classpath*:data.sql
+  cloud:
+    config:
+      enabled: false
+  r2dbc:
+    url: "r2dbc:h2:mem:///test;DB_CLOSE_DELAY=-1"
+    name: "sa"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/spring-cloud-gateway-realm
+eureka:
+  client:
+    enabled: false

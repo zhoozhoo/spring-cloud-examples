@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.zhoozhoo.springcloud.reservations.dao.ReservationRepository;
 import ca.zhoozhoo.springcloud.reservations.model.Reservation;
+import ca.zhoozhoo.springcloud.reservations.repository.ReservationRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.rooms;
+package ca.zhoozhoo.springcloud.reservations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,7 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class RoomServiceApplicationTests {
+class ReservationServiceApplicationTest {
 
 	@Test
 	void contextLoads() {

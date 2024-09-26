@@ -1,4 +1,4 @@
-package ca.zhoozhoo.springcloud.reservations.dao;
+package ca.zhoozhoo.springcloud.reservations.repository;
 
 import java.time.LocalDate;
 
