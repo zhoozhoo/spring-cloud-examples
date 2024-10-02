@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.zhoozhoo.springcloud.guests.dao.GuestRepository;
 import ca.zhoozhoo.springcloud.guests.model.Guest;
+import ca.zhoozhoo.springcloud.guests.repository.GuestRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
