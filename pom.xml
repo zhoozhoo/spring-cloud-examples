@@ -36,6 +36,7 @@
         <keycloak.version>25.0.5</keycloak.version>
         <docker.image.prefix>zhoozhoo</docker.image.prefix>
         <jkube.version>1.17.0</jkube.version>
+        <testcontainers.version>1.20.2</testcontainers.version>
     </properties>
 
     <dependencyManagement>
