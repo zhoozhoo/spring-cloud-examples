@@ -2,8 +2,10 @@ spring:
   cloud:
     config:
       enabled: false
+    discovery:
+      enabled: false
   r2dbc:
-    url: "r2dbc:h2:mem:///test;DB_CLOSE_DELAY=-1"
+    url: "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=16.0"
     name: "sa"
   security:
     oauth2:
