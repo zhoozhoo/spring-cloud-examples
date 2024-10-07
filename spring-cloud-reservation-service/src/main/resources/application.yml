@@ -3,6 +3,16 @@ spring:
     name: reservation-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+  cloud:
+    config:
+      discovery: 
+        enabled: true
+        serviceId: config-server
+      fail-fast: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761}/eureka/
 ---
 spring:
   config:

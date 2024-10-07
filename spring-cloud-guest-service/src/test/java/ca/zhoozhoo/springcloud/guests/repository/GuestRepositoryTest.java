@@ -3,7 +3,10 @@ package ca.zhoozhoo.springcloud.guests.repository;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,28 +16,31 @@ import reactor.test.StepVerifier;
 
 @SpringBootTest(properties = { "eureka.client.enabled=false", "spring.cloud.config.enabled=false" })
 @ActiveProfiles("test")
+@TestMethodOrder(OrderAnnotation.class)
 public class GuestRepositoryTest {
 
     @Autowired
     private GuestRepository guestRepository;
 
     @Test
-    public void testFindAll() {
-        insertGuests();
-
-        guestRepository.findAll()
-                .as(StepVerifier::create)
-                .expectNextCount(4)
-                .verifyComplete();
-    }
-
-    @Test
+    @Order(1)
     public void testDeleteAll() {
         insertGuests();
 
         guestRepository.deleteAll()
                 .as(StepVerifier::create)
                 .expectNextCount(0)
+                .verifyComplete();
+    }
+
+    @Test
+    @Order(2)
+    public void testFindAll() {
+        insertGuests();
+
+        guestRepository.findAll()
+                .as(StepVerifier::create)
+                .expectNextCount(4)
                 .verifyComplete();
     }
 

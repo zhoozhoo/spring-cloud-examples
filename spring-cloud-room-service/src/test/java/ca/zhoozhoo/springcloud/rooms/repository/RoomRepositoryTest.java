@@ -3,7 +3,10 @@ package ca.zhoozhoo.springcloud.rooms.repository;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,25 +16,34 @@ import reactor.test.StepVerifier;
 
 @SpringBootTest(properties = { "eureka.client.enabled=false", "spring.cloud.config.enabled=false" })
 @ActiveProfiles("test")
+@TestMethodOrder(OrderAnnotation.class)
 public class RoomRepositoryTest {
 
     @Autowired
     private RoomRepository roomRepository;
 
     @Test
-    public void testSaveAllFindAllDeleteAll() {
+    @Order(1)
+    public void testDeleteAll() {
         insertRooms();
-
-        roomRepository.findAll()
-                .as(StepVerifier::create)
-                .expectNextCount(4)
-                .verifyComplete();
 
         roomRepository.deleteAll()
                 .as(StepVerifier::create)
                 .expectNextCount(0)
                 .verifyComplete();
     }
+
+    @Test
+    @Order(2)
+    public void testFindAll() {
+        insertRooms();
+
+        roomRepository.findAll()
+                .as(StepVerifier::create)
+                .expectNextCount(4)
+                .verifyComplete();
+    }
+
 
     public void insertRooms() {
         List<Room> rooms = Arrays.asList(new Room(null, "Room 1", "101", "King Bed"),
