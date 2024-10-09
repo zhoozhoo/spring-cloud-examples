@@ -2,16 +2,10 @@ spring:
   cloud:
     config:
       enabled: false
-    discovery:
-      enabled: false
   r2dbc:
     url: "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=16.0"
     name: "sa"
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8180/auth/realms/spring-cloud-gateway-realm
+
 eureka:
   client:
     enabled: false

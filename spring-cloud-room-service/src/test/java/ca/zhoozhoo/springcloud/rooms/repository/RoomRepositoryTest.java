@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import ca.zhoozhoo.springcloud.rooms.model.Room;
 import reactor.test.StepVerifier;
 
-@SpringBootTest(properties = { "eureka.client.enabled=false", "spring.cloud.config.enabled=false" })
+@SpringBootTest
 @ActiveProfiles("test")
 @TestMethodOrder(OrderAnnotation.class)
 public class RoomRepositoryTest {
