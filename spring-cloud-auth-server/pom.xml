@@ -14,73 +14,35 @@
     <description>Sample Spring Cloud Authorization Server</description>
 
     <dependencies>
+
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
-        <!-- KeyCloak -->
-		<dependency>
-			<groupId>org.keycloak</groupId>
-			<artifactId>keycloak-admin-client</artifactId>
-			<version>${keycloak.version}</version>
-		</dependency>
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>docker</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.eclipse.jkube</groupId>
-                        <artifactId>kubernetes-maven-plugin</artifactId>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <alias>${project.artifactId}</alias>
-                                    <name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
-                                    <build combine.self="override">
-                                        <from>quay.io/keycloak/keycloak:${keycloak.version}</from>
-                                        <env>
-                                            <KEYCLOAK_USER>admin</KEYCLOAK_USER>
-                                            <KEYCLOAK_PASSWORD>admin</KEYCLOAK_PASSWORD>
-                                            <KEYCLOAK_IMPORT>/tmp/spring-cloud-gateway-realm.json</KEYCLOAK_IMPORT>
-                                            <DB_VENDOR>h2</DB_VENDOR>
-                                        </env>
-                                        <assembly>
-                                            <mode>dir</mode>
-                                            <targetDir>/tmp</targetDir>
-                                            <inline>
-                                                <id>spring-cloud-gateway-realm</id>
-                                                <files>
-                                                    <file>
-                                                        <source>spring-cloud-gateway-realm.json</source>
-                                                        <outputDirectory>.</outputDirectory>
-                                                    </file>
-                                                </files>
-                                            </inline>
-                                        </assembly>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
