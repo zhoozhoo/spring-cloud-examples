@@ -1,42 +1,8 @@
-server:
-  port: 9000
-
 spring:
   application:
     name: auth-server
   config:
     import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
-  cloud:
-    config:
-      discovery: 
-          enabled: true
-          serviceId: config-server
-      fail-fast: true
-  security:
-    user:
-      name: user1
-      password: password
-    oauth2:
-      authorizationserver:
-        issuer: http://auth-server:9000
-        client:
-          spring-cloud-client:
-            registration:
-              client-id: "spring-cloud-client"
-              client-secret: "{noop}secret"
-              client-name: "Spring Cloud Client"
-              client-authentication-methods:
-                - client_secret_basic
-              authorization-grant-types:
-                - authorization_code
-                - refresh_token
-              redirect-uris:
-                - http://127.0.0.1:8080/login/oauth2/code/spring-cloud-client
-                - http://127.0.0.1:8080/authorized
-              scopes:
-                - openid
-                - articles.read
-
 eureka:
   client:
     serviceUrl:
@@ -47,7 +13,3 @@ spring:
     activate:
       on-profile: docker
     import: configserver:http://config-server:8888
-
-logging:
-  level:
-    org.springframework.security: debug

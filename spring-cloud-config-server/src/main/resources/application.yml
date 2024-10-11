@@ -6,8 +6,9 @@ spring:
   cloud:
     config:
       server:
-        bootstrap: true
         git:
-          uri: https://github.com/zhoozhoo/spring-cloud-examples-config.git
-          force-pull: true
+          uri: https://github.com/zhoozhoo/spring-cloud-examples-config
+          default-label: master
+        native:
+          searchLocations: file:///${GIT_REPO}
 
