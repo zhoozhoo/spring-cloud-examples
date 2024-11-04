@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.3.5</version>
     </parent>
 
     <groupId>ca.zhoozhoo.spring.cloud</groupId>
@@ -29,14 +29,14 @@
 
     <properties>
         <java.version>21</java.version>
-        <spring-boot.version>3.3.4</spring-boot.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
-        <spring-boot-admin.version>3.3.3</spring-boot-admin.version>
+        <spring-boot-admin.version>3.3.5</spring-boot-admin.version>
         <jolokia-core.version>1.7.2</jolokia-core.version>
-        <keycloak.version>25.0.5</keycloak.version>
+        <keycloak.version>26.0.5</keycloak.version>
         <docker.image.prefix>zhoozhoo</docker.image.prefix>
         <jkube.version>1.17.0</jkube.version>
-        <testcontainers.version>1.20.2</testcontainers.version>
+        <testcontainers.version>1.20.3</testcontainers.version>
     </properties>
 
     <dependencyManagement>
