@@ -76,7 +76,7 @@
                             <image>
                                 <name>
                                     ${docker.image.prefix}/${project.artifactId}:${project.version}</name>
-                                <runImage>eclipse-temurin:${java.version}-jre-alpine</runImage>
+                                <builder>paketobuildpacks/builder-jammy-tiny:latest</builder>
                             </image>
                         </configuration>
                     </execution>
